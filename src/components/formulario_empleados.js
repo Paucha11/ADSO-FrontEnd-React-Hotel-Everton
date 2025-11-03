@@ -20,6 +20,7 @@ function FormularioEmpleados({ editar_empleados, onSaveComplete }) {
   // Esto permite reflejar en tiempo real lo que el usuario escribe.
   const [RUT_empleado, setRUT_empleado] = useState("");
   const [id_cargo, setId_cargo] = useState("");
+  const [NIT_hotel, setNIT_hotel] = useState("");
   const [nombre_empleado, setNombre_empleado] = useState("");
   const [telefono_empleado, setTelefono_empleado] = useState("");
   const [direccion_empleado, setDireccion_empleado] = useState("");
@@ -38,6 +39,7 @@ function FormularioEmpleados({ editar_empleados, onSaveComplete }) {
       // Precargar datos del empleado seleccionado
       setRUT_empleado(editar_empleados.RUT_empleado);
       setId_cargo(editar_empleados.id_cargo);
+      setNIT_hotel(editar_empleados.NIT_hotel);
       setNombre_empleado(editar_empleados.nombre_empleado);
       setTelefono_empleado(editar_empleados.telefono_empleado);
       setDireccion_empleado(editar_empleados.direccion_empleado);
@@ -51,6 +53,7 @@ function FormularioEmpleados({ editar_empleados, onSaveComplete }) {
       // Limpiar el formulario para crear uno nuevo
       setRUT_empleado("");
       setId_cargo("");
+      setNIT_hotel("");
       setNombre_empleado("");
       setTelefono_empleado("");
       setDireccion_empleado("");
@@ -69,12 +72,12 @@ function FormularioEmpleados({ editar_empleados, onSaveComplete }) {
     e.preventDefault(); // Evita que el navegador recargue la página por defecto.
 
     // Construimos un objeto con los datos del formulario
-    const nuevo_empleado = { RUT_empleado, id_cargo, nombre_empleado, telefono_empleado, direccion_empleado, correo_electronico, fecha_nacimiento, EPS, salario, tipo_contrato };
+    const nuevo_empleado = { RUT_empleado, id_cargo, NIT_hotelnombre_empleado, telefono_empleado, direccion_empleado, correo_electronico, fecha_nacimiento, EPS, salario, tipo_contrato };
 
     // Determinamos si el formulario está en modo edición o creación
     const method = editar_empleados ? "PUT" : "POST";
     const url = editar_empleados
-      ? `http://localhost:3000/api/empleados/${editar_empleados._id}` // Actualizar
+      ? `http://localhost:3000/api/empleados/${editar_empleados._RUT_empleado}` // Actualizar
       : "http://localhost:3000/api/empleados"; // Crear nuevo
 
     // -------------------- PETICIÓN FETCH --------------------
@@ -109,7 +112,7 @@ function FormularioEmpleados({ editar_empleados, onSaveComplete }) {
 
       {/* Campo de texto: RUT del empleado */}
       <input
-        type="text"
+        type="varchar"
         placeholder="RUT"
         value={RUT_empleado}
         onChange={(e) => setRUT_empleado(e.target.value)}
@@ -118,16 +121,25 @@ function FormularioEmpleados({ editar_empleados, onSaveComplete }) {
 
       {/* Campo de texto: ID del cargo */}
       <input
-        type="text"
+        type="number"
         placeholder="ID del cargo"
         value={id_cargo}
         onChange={(e) => setId_cargo(e.target.value)}
         required
       />
 
+      {/* Campo de texto: NIT del hotel */}
+      <input
+        type="varchar"
+        placeholder="NIT del hotel"
+        value={NIT_hotel}
+        onChange={(e) => setNIT_hotel(e.target.value)}
+        required
+      />
+
       {/* Campo de texto: Nombre del empleado */}
       <input
-        type="text"
+        type="varchar"
         placeholder="Nombre"
         value={nombre_empleado}
         onChange={(e) => setNombre_empleado(e.target.value)}
@@ -136,7 +148,7 @@ function FormularioEmpleados({ editar_empleados, onSaveComplete }) {
 
       {/* Campo de texto: Telefono del empleado */}
       <input
-        type="text"
+        type="varchar"
         placeholder="Telefono"
         value={telefono_empleado}
         onChange={(e) => setTelefono_empleado(e.target.value)}
@@ -145,7 +157,7 @@ function FormularioEmpleados({ editar_empleados, onSaveComplete }) {
 
       {/* Campo de texto: Direccion del empleado */}
       <input
-        type="text"
+        type="varchar"
         placeholder="Direccion"
         value={direccion_empleado}
         onChange={(e) => setDireccion_empleado(e.target.value)}
@@ -181,7 +193,7 @@ function FormularioEmpleados({ editar_empleados, onSaveComplete }) {
 
       {/* Campo de texto: Salario del empleado */}
       <input
-        type="number"
+        type="double"
         placeholder="Salario"
         value={salario}
         onChange={(e) => setSalario(e.target.value)}
@@ -190,7 +202,7 @@ function FormularioEmpleados({ editar_empleados, onSaveComplete }) {
 
       {/* Campo de texto: Tipo de Contrato del empleado */}
       <input
-        type="text"
+        type="varchar"
         placeholder="Tipo de Contrato"
         value={tipo_contrato}
         onChange={(e) => setTipo_contrato(e.target.value)}

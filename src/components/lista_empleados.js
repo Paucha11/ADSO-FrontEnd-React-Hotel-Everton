@@ -67,6 +67,7 @@ function Lista_empleados({ onEdit }) {
 
                 <th>RUT</th>
                 <th>id_cargo</th>
+                <th>NIT_hotel</th>
                 <th>nombre_empleado</th>
                 <th>telefono_empleado</th>
                 <th>direccion_empleado</th>
@@ -86,6 +87,7 @@ function Lista_empleados({ onEdit }) {
               <tr key={emp._id || emp.id}>
                 <td>{emp.RUT_empleado}</td>
                 <td>{emp.id_cargo}</td>
+                <td>{emp.NIT_hotel}</td>            
                 <td>{emp.nombre_empleado}</td>
                 <td>{emp.telefono_empleado}</td>
                 <td>{emp.direccion_empleado}</td>
