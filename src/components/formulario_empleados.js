@@ -147,7 +147,7 @@ function FormularioEmpleados({ editar_empleados, onSaveComplete }) {
 
       {/* Campo de texto: Nombre del empleado */}
       <input
-        type="varchar"
+        type="text varchar"
         placeholder="Nombre"
         value={nombre_empleado}
         onChange={(e) => setNombre_empleado(e.target.value)}
