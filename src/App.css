@@ -30,3 +30,18 @@ button {
 button:hover {
   background-color: #0056b3;
 }
+
+.input-estilo {
+  height: 36px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 8px;
+  font-size: 1rem;
+  font-family: inherit;
+  color: #222;
+  background: #fff;
+  width: 100%;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+
