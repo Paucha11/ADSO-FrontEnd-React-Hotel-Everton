@@ -29,12 +29,18 @@ function FormularioEmpleados({ editar_empleados, onSaveComplete }) {
   const [EPS, setEPS] = useState("");
   const [salario, setSalario] = useState("");
   const [tipo_contrato, setTipo_contrato] = useState("");
-  const [cargos, setCargos] = useState([]);
-        useEffect(() => {
-        fetch("http://localhost:3000/api/cargo")
-        .then(res => res.json())
-        .then(data => setCargos(data));
-}, []);
+  const [cargos, setCargos] = useState([]); // <--- AQUÍ
+
+  useEffect(() => {
+  fetch("http://localhost:3000/api/cargo")
+    .then(res => res.json())
+    .then(data => {
+      console.log("Cargos cargados del backend", data);  // Aquí imprime los cargos
+      setCargos(data);
+    });
+}, []); 
+  // -------------------- FUNCIÓN DE CARGA DE CARGOS -------------------- 
+
 
 
   // -------------------- EFECTO DE SINCRONIZACIÓN --------------------
@@ -55,6 +61,7 @@ function FormularioEmpleados({ editar_empleados, onSaveComplete }) {
       setEPS(editar_empleados.EPS);
       setSalario(editar_empleados.salario);
       setTipo_contrato(editar_empleados.tipo_contrato);
+      setCargos(editar_empleados.cargos);
 
     } else {
       // Limpiar el formulario para crear uno nuevo
@@ -112,7 +119,7 @@ function FormularioEmpleados({ editar_empleados, onSaveComplete }) {
 
       {/* Campo de texto: RUT del empleado */}
       <input
-        type="varchar"
+        type="text"
         placeholder="RUT"
         value={RUT_empleado}
         onChange={(e) => setRUT_empleado(e.target.value)}
@@ -121,7 +128,7 @@ function FormularioEmpleados({ editar_empleados, onSaveComplete }) {
 
       {/* Campo de texto: NIT del hotel */}
       <input
-        type="varchar"
+        type="text"
         placeholder="NIT"
         value={NIT_hotel}
         onChange={(e) => setNIT_hotel(e.target.value)}
@@ -130,24 +137,23 @@ function FormularioEmpleados({ editar_empleados, onSaveComplete }) {
 
       {/* Campo de texto: ID del cargo */}
       <select
-      className="input-estilo"
-  style={{ width: '200px' }}
-  value={id_cargo}
-  onChange={e => setId_cargo(e.target.value)}
-  required
->
-  <option value="">Seleccione un cargo</option>
-  {cargos.map(c => (
-    <option key={c.id_cargo} value={c.id_cargo}>
-      {c.cargo}
-    </option>
-  ))}
-    </select>
+      value={id_cargo}
+      onChange={e => setId_cargo(e.target.value)}
+      required
+    >
+      <option value="">Seleccione un cargo</option>
+      {cargos.map(cargo => (
+      <option key={cargo.id_cargo} value={cargo.id_cargo}>
+      {cargo.id_cargo} - {cargo.cargo}
+      </option>
+    ))}
+      </select>
+      
 
 
       {/* Campo de texto: Nombre del empleado */}
       <input
-        type="text varchar"
+        type="text"
         placeholder="Nombre"
         value={nombre_empleado}
         onChange={(e) => setNombre_empleado(e.target.value)}
@@ -156,7 +162,7 @@ function FormularioEmpleados({ editar_empleados, onSaveComplete }) {
 
       {/* Campo de texto: Telefono del empleado */}
       <input
-        type="varchar"
+        type="text"
         placeholder="Telefono"
         value={telefono_empleado}
         onChange={(e) => setTelefono_empleado(e.target.value)}
@@ -192,7 +198,7 @@ function FormularioEmpleados({ editar_empleados, onSaveComplete }) {
 
       {/* Campo de texto: EPS del empleado */}
       <input
-        type="varchar"
+        type="text"
         placeholder="EPS"
         value={EPS}
         onChange={(e) => setEPS(e.target.value)}
@@ -210,7 +216,7 @@ function FormularioEmpleados({ editar_empleados, onSaveComplete }) {
 
       {/* Campo de texto: Tipo de Contrato del empleado */}
       <input
-        type="varchar "
+        type="text"
         placeholder="Tipo de Contrato"
         value={tipo_contrato}
         onChange={(e) => setTipo_contrato(e.target.value)}
